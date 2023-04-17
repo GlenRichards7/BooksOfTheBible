@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
-<body onload="load()">
+<body onload="load(bible[bibleIndexNum].book)">
 
   <h2>Books of the Bible</h2>
   <label id='question'></label>
   <input id='answer' type='text' autofocus></input>
   <button id='check' onclick="checkAnswer(document.getElementById('answer').value)">Check</button>
   <p>
-  <button id='reset' onclick="location.reload()">Reset</button>
+  <button id='reset' onclick="resetForm(false)">Reset</button>
+  <button id='modeToggle' onclick="resetForm(true)">Change to Book Order</button>
   <table id='result'></table>
 
 </body>
@@ -81,6 +82,7 @@
     {book: "Revelation", chapters: 22}
   ]
   let bibleIndexNum = 0 // Math.floor(Math.random() * bible.length) // Pick a random question.
+  let mode = 'How many chapters in '; // 'What is book # '
 
   // Hitting <Enter> key is the same as clicking.
   document.getElementById("answer").addEventListener("keypress", function(event) {
@@ -90,27 +92,73 @@
     }
   });
 
-  function load() {
-    document.getElementById('question').innerHTML = 'How many chapters in ' + bible[bibleIndexNum].book + '?'
+  function load(questionEnding) {
+    document.getElementById('question').innerHTML = mode + questionEnding + '?'
   }
 
   function checkAnswer(answer) {
     const row = document.getElementById("result").insertRow(0)
-    if (answer != bible[bibleIndexNum].chapters) {
-      row.style.color = "red";
-    }
-    row.insertCell(0).innerHTML = bible[bibleIndexNum].book + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].chapters
-    bibleIndexNum++;
-    document.getElementById('answer').value = '';
-    document.getElementById('answer').select();
 
-    if (bibleIndexNum < bible.length) {
-      load()
+    if (mode == 'What is book # ') {
+      if (answer != bible[bibleIndexNum].book) {
+        row.style.color = "red";
+      }
+      row.insertCell(0).innerHTML = (bibleIndexNum + 1) + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].book
+      bibleIndexNum++
+      document.getElementById('answer').value = '';
+      document.getElementById('answer').select();
+      if (bibleIndexNum < bible.length) {
+        load(bibleIndexNum + 1)
+      } else {
+        document.getElementById('question').innerHTML = mode + 'Complete!';
+        document.getElementById('answer').disabled = true;
+        document.getElementById('check').disabled = true;
+      }
+
     } else {
-      document.getElementById('question').innerHTML = 'How many chapters in Complete!';
-      document.getElementById('answer').disabled = true;
-      document.getElementById('check').disabled = true;
+      if (answer != bible[bibleIndexNum].chapters) {
+        row.style.color = "red";
+      }
+      row.insertCell(0).innerHTML = bible[bibleIndexNum].book + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].chapters
+      bibleIndexNum++;
+      document.getElementById('answer').value = '';
+      document.getElementById('answer').select();
+
+      if (bibleIndexNum < bible.length) {
+        load(bible[bibleIndexNum].book)
+      } else {
+        document.getElementById('question').innerHTML = mode + 'Complete!';
+        document.getElementById('answer').disabled = true;
+        document.getElementById('check').disabled = true;
+      }
     }
+  }
+
+  function resetForm(toggle) {
+    bibleIndexNum = 0;
+    document.getElementById('result').innerHTML = "";
+    document.getElementById('answer').value = '';
+    
+    document.getElementById('answer').disabled = false;
+    document.getElementById('check').disabled = false;
+
+    if (toggle) {
+      if (mode == 'What is book # ') {
+        document.getElementById('modeToggle').textContent = 'Change to Book Order';
+        mode = 'How many chapters in ';
+      } else {
+        document.getElementById('modeToggle').textContent = 'Change to How Many Chapters';
+        mode = 'What is book # ';
+      }
+    }
+    
+    if (mode == 'What is book # ') {
+      load(bibleIndexNum + 1);
+    } else {
+      load(bible[bibleIndexNum].book);
+    }
+
+    document.getElementById('answer').select();
   }
 </script>
 </html>

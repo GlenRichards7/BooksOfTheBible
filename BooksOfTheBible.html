@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<body onload="load()">
+
+  <h2>Books of the Bible</h2>
+  <label id='question'></label>
+  <input id='answer' type='text' autofocus></input>
+  <button id='check' onclick="checkAnswer(document.getElementById('answer').value)">Check</button>
+  <p>
+  <button id='reset' onclick="location.reload()">Reset</button>
+  <table id='result'></table>
+
+</body>
+<script>
+  const bible = [
+    {book:"Genesis", chapters:50},
+    {book:"Exodus", chapters:40},
+    {book:"Leviticus", chapters:27},
+    {book:"Numbers", chapters:36},
+    {book:"Deuteronomy", chapters:34}
+  ]
+  let bibleIndexNum = 0 // Math.floor(Math.random() * bible.length) // Pick a random question.
+
+  // Hitting <Enter> key is the same as clicking.
+  document.getElementById("answer").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById("check").click();
+    }
+  });
+
+  function load() {
+    document.getElementById('question').innerHTML = 'How many chapters in ' + bible[bibleIndexNum].book + '?'
+  }
+
+  function checkAnswer(answer) {
+    const row = document.getElementById("result").insertRow(0)
+    if (answer != bible[bibleIndexNum].chapters) {
+      row.style.color = "red";
+    }
+    row.insertCell(0).innerHTML = bible[bibleIndexNum].book + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].chapters
+    bibleIndexNum++;
+    document.getElementById('answer').value = '';
+    document.getElementById('answer').select();
+
+    if (bibleIndexNum < bible.length) {
+      load()
+    } else {
+      document.getElementById('question').innerHTML = 'How many chapters in Complete!';
+      document.getElementById('answer').disabled = true;
+      document.getElementById('check').disabled = true;
+    }
+  }
+</script>
+</html>

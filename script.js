@@ -1,7 +1,7 @@
 const bible = [
     {book: "Genesis", chapters: 50},
     {book: "Exodus", chapters: 40},
-    /*{book: "Leviticus", chapters: 27},
+    {book: "Leviticus", chapters: 27},
     {book: "Numbers", chapters: 36},
     {book: "Deuteronomy", chapters: 34},
     {book: "Joshua", chapters: 24},
@@ -64,7 +64,7 @@ const bible = [
     {book: "2 John", chapters: 1},
     {book: "3 John", chapters: 1},
     {book: "Jude", chapters: 1},
-    {book: "Revelation", chapters: 22}*/
+    {book: "Revelation", chapters: 22}
   ]
   let bibleIndexNum = 0 // Math.floor(Math.random() * bible.length) // Pick a random question.
   let mode = 'How many chapters in '; // 'What is book # '
@@ -97,29 +97,22 @@ const bible = [
       row.style.color = "red";
     }
     row.insertCell(0).innerHTML = resultText;
-    bibleIndexNum++;
+
     document.getElementById('answer').value = '';
     document.getElementById('answer').select();
 
-    if (mode == 'What is book # ') {      
-      if (bibleIndexNum < bible.length) {
-        load(bibleIndexNum + 1)
+    bibleIndexNum++;
+    if (bibleIndexNum < bible.length) {
+      if (mode == 'What is book # ') {
+        load(bibleIndexNum + 1);
       } else {
-        complete();
+        load(bible[bibleIndexNum].book);
       }
     } else {
-      if (bibleIndexNum < bible.length) {
-        load(bible[bibleIndexNum].book)
-      } else {
-        complete();
-      }
+      document.getElementById('question').innerHTML = mode + 'Complete!';
+      document.getElementById('answer').disabled = true;
+      document.getElementById('check').disabled = true;
     }
-  }
-
-  function complete() {
-    document.getElementById('question').innerHTML = mode + 'Complete!';
-    document.getElementById('answer').disabled = true;
-    document.getElementById('check').disabled = true;
   }
 
   function resetForm(toggle) {

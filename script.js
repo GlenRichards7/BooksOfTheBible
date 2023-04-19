@@ -1,7 +1,7 @@
 const bible = [
     {book: "Genesis", chapters: 50},
     {book: "Exodus", chapters: 40},
-    {book: "Leviticus", chapters: 27},
+    /*{book: "Leviticus", chapters: 27},
     {book: "Numbers", chapters: 36},
     {book: "Deuteronomy", chapters: 34},
     {book: "Joshua", chapters: 24},
@@ -64,7 +64,7 @@ const bible = [
     {book: "2 John", chapters: 1},
     {book: "3 John", chapters: 1},
     {book: "Jude", chapters: 1},
-    {book: "Revelation", chapters: 22}
+    {book: "Revelation", chapters: 22}*/
   ]
   let bibleIndexNum = 0 // Math.floor(Math.random() * bible.length) // Pick a random question.
   let mode = 'How many chapters in '; // 'What is book # '
@@ -82,31 +82,32 @@ const bible = [
   }
 
   function checkAnswer(answer) {
-    const row = document.getElementById("result").insertRow(0)
-
+    let isAnswerCorrect;
+    let resultText;
     if (mode == 'What is book # ') {
-      if (answer.toLowerCase() != bible[bibleIndexNum].book.toLowerCase()) {
-        row.style.color = "red";
-      }
-      row.insertCell(0).innerHTML = (bibleIndexNum + 1) + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].book
-      bibleIndexNum++
-      document.getElementById('answer').value = '';
-      document.getElementById('answer').select();
+        isAnswerCorrect = (answer.toLowerCase() == bible[bibleIndexNum].book.toLowerCase());
+        resultText = (bibleIndexNum + 1) + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].book;
+    } else {
+        isAnswerCorrect = (answer == bible[bibleIndexNum].chapters);
+        resultText = bible[bibleIndexNum].book + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].chapters;
+    }
+
+    const row = document.getElementById("result").insertRow(0)
+    if (!isAnswerCorrect) {
+      row.style.color = "red";
+    }
+    row.insertCell(0).innerHTML = resultText;
+    bibleIndexNum++;
+    document.getElementById('answer').value = '';
+    document.getElementById('answer').select();
+
+    if (mode == 'What is book # ') {      
       if (bibleIndexNum < bible.length) {
         load(bibleIndexNum + 1)
       } else {
         complete();
       }
-
     } else {
-      if (answer != bible[bibleIndexNum].chapters) {
-        row.style.color = "red";
-      }
-      row.insertCell(0).innerHTML = bible[bibleIndexNum].book + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].chapters
-      bibleIndexNum++;
-      document.getElementById('answer').value = '';
-      document.getElementById('answer').select();
-
       if (bibleIndexNum < bible.length) {
         load(bible[bibleIndexNum].book)
       } else {

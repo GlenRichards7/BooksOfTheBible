@@ -77,15 +77,11 @@ const bible = [
     }
   });
 
-  function load(questionEnding) {
-    document.getElementById('question').innerHTML = mode + questionEnding + '?'
-  }
-
   function loadDependingOnMode() {
     if (mode == 'What is book # ') {
-      load(bibleIndexNum + 1);
+      document.getElementById('question').innerHTML = mode + (bibleIndexNum + 1) + '?'
     } else {
-      load(bible[bibleIndexNum].book);
+      document.getElementById('question').innerHTML = mode + (bible[bibleIndexNum].book) + '?'
     }
   }
 

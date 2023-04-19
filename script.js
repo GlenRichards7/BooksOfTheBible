@@ -95,9 +95,7 @@ const bible = [
       if (bibleIndexNum < bible.length) {
         load(bibleIndexNum + 1)
       } else {
-        document.getElementById('question').innerHTML = mode + 'Complete!';
-        document.getElementById('answer').disabled = true;
-        document.getElementById('check').disabled = true;
+        complete();
       }
 
     } else {
@@ -112,11 +110,15 @@ const bible = [
       if (bibleIndexNum < bible.length) {
         load(bible[bibleIndexNum].book)
       } else {
-        document.getElementById('question').innerHTML = mode + 'Complete!';
-        document.getElementById('answer').disabled = true;
-        document.getElementById('check').disabled = true;
+        complete();
       }
     }
+  }
+
+  function complete() {
+    document.getElementById('question').innerHTML = mode + 'Complete!';
+    document.getElementById('answer').disabled = true;
+    document.getElementById('check').disabled = true;
   }
 
   function resetForm(toggle) {

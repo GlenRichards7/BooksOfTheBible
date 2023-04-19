@@ -85,7 +85,7 @@ const bible = [
     const row = document.getElementById("result").insertRow(0)
 
     if (mode == 'What is book # ') {
-      if (answer != bible[bibleIndexNum].book) {
+      if (answer.toLowerCase() != bible[bibleIndexNum].book.toLowerCase()) {
         row.style.color = "red";
       }
       row.insertCell(0).innerHTML = (bibleIndexNum + 1) + ' - your answer: ' + answer + ', right answer: ' + bible[bibleIndexNum].book

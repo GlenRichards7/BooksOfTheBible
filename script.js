@@ -81,6 +81,14 @@ const bible = [
     document.getElementById('question').innerHTML = mode + questionEnding + '?'
   }
 
+  function loadDependingOnMode() {
+    if (mode == 'What is book # ') {
+      load(bibleIndexNum + 1);
+    } else {
+      load(bible[bibleIndexNum].book);
+    }
+  }
+
   function checkAnswer(answer) {
     let isAnswerCorrect;
     let resultText;
@@ -103,11 +111,7 @@ const bible = [
 
     bibleIndexNum++;
     if (bibleIndexNum < bible.length) {
-      if (mode == 'What is book # ') {
-        load(bibleIndexNum + 1);
-      } else {
-        load(bible[bibleIndexNum].book);
-      }
+      loadDependingOnMode();
     } else {
       document.getElementById('question').innerHTML = mode + 'Complete!';
       document.getElementById('answer').disabled = true;
@@ -133,11 +137,7 @@ const bible = [
       }
     }
     
-    if (mode == 'What is book # ') {
-      load(bibleIndexNum + 1);
-    } else {
-      load(bible[bibleIndexNum].book);
-    }
+    loadDependingOnMode();
 
     document.getElementById('answer').select();
   }

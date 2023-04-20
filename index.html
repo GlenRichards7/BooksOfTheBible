@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
-<body onload="loadDependingOnMode()">
-
-  <h2>Books of the Bible</h2>
-  <label id='question'></label>
-  <input id='answer' type='text' autofocus></input>
-  <button id='check' onclick="checkAnswer(document.getElementById('answer').value)">Check</button>
-  <p>
-  <button id='reset' onclick="resetForm(false)">Reset</button>
-  <button id='modeToggle' onclick="resetForm(true)">Change to Book Order</button>
-  <table id='result'></table>
-
-</body>
-<script src="script.js"></script>
+  <head>
+    <title>Books of the Bible</title>
+  </head>
+  <body onload="loadDependingOnMode()">
+    <h2>Books of the Bible</h2>
+    <label id='question'></label>
+    <input id='answer' type='text' autofocus></input>
+    <button id='check' onclick="checkAnswer(document.getElementById('answer').value)">Check</button>
+    <p>
+    <button id='reset' onclick="resetForm(false)">Reset</button>
+    <button id='modeToggle' onclick="resetForm(true)">Change to Book Order</button>
+    <table id='result'></table>
+    <script src="script.js"></script>
+  </body>
 </html>

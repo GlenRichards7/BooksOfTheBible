@@ -98,7 +98,7 @@ const bible = [
 
     const row = document.getElementById("result").insertRow(0)
     if (!isAnswerCorrect) {
-      row.style.color = "red";
+      row.classList.add("wrongAnswer");
     }
     row.insertCell(0).innerHTML = resultText;
 

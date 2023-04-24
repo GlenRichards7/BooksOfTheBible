@@ -69,12 +69,26 @@ const bible = [
   let bibleIndexNum = 0 // Math.floor(Math.random() * bible.length) // Pick a random question.
   let mode = 'How many chapters in '; // 'What is book # '
 
+  loadDependingOnMode()
+
   // Hitting <Enter> key is the same as clicking.
   document.getElementById("answer").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
       event.preventDefault();
       document.getElementById("check").click();
     }
+  });
+
+  document.getElementById("check").addEventListener("click", function() {
+    checkAnswer(document.getElementById('answer').value)
+  });
+
+  document.getElementById("reset").addEventListener("click", function() {
+    resetForm(false)
+  });
+
+  document.getElementById("modeToggle").addEventListener("click", function() {
+    resetForm(true)
   });
 
   function loadDependingOnMode() {

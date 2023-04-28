@@ -1,12 +1,13 @@
 body {
-    padding: 2%;
-    font-size: 2rem;
+  padding: 2%;
+  font-size: 2rem;
 }
 
-input, button {
-    font: inherit;
+input,
+button {
+  font: inherit;
 }
 
 .wrongAnswer {
-    color: red;
+  color: red;
 }
